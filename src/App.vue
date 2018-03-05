@@ -1,5 +1,5 @@
 <template>
-  <pre>{{$mount}}</pre>
+  <pre>{{counter}}</pre>
 </template>
 
 <script>
@@ -15,10 +15,16 @@ export default {
   // }
   data(){
     return{
-      name:'Elton John'
+      name:'Elton John',
+      counter:0
     }
   }
 }
+
+setInterval(function(){
+  this.counter++;
+},100)
+
 </script>
 
 <style>
