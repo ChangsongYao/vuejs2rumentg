@@ -1,5 +1,5 @@
 <template>
-  <h1>Hello,Vue.js 2!</h1>
+  <h1>{{name}}</h1>
 </template>
 
 <script>
@@ -9,6 +9,14 @@ export default {
   name: 'App',
   components: {
     // HelloWorld
+  },
+  // data:{  错误写法
+  //   name:'Elton John'
+  // }
+  data(){
+    return{
+      name:'Elton John'
+    }
   }
 }
 </script>
