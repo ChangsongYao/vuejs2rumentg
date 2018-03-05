@@ -1,5 +1,5 @@
 <template>
-  <h1>{{name}}</h1>
+  <pre>{{$mount}}</pre>
 </template>
 
 <script>
