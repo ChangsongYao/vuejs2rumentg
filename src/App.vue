@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>{{name}}</h1>
+    <pre>{{$mount}}</pre>
   </div>
 </template>
 <script>
@@ -9,7 +9,7 @@ export default {
   name: 'App',
   data:function () {
     return{
-      name:'Elton John'
+
     }
   }
 }
