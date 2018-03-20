@@ -1,27 +1,9 @@
 <template>
   <div id="app">
-    <div class="normal">
-      <span>常规</span>
-      <button @click="ta=ta.filter((d)=>d<counter-2)">filter()</button>
-      <button @click="ta=ta.concat([counter++,counter++])">concat()</button>
-      <button @click="ta=ta.slice(1)">slice()</button>
-    </div>
-    <div class="patched">
-      <span>补丁</span>
-      <button @click="ta.push(counter++)">push()</button>
-      <button @click="ta.pop()">pop()</button>
-      <button @click="ta.unshift(counter++)">unshift()</button>
-      <button @click="ta.shift()">shift()</button>
-      <button @click="ta.splice(0,1,counter++)">splice()</button>
-      <button @click="ta.sort((d1,d2)=>d2-d1)">sort()</button>
-      <button @click="ta.reverse()">reverse()</button>
-    </div>
-    <div class="noway">
-      <span>失败</span>
-      <button @click="ta[0]=798">ta[0]=798</button>
-      <button @click="ta.length=100">ta.length=100</button>
-    </div>
-    <p>ta: {{ta}}</p>
+    <button @click="add">添加</button>
+    <button @click="del">删除</button>
+    <button @click="upd">更新最后一年数据</button>
+    <pre>{{JSON.stringify(stats,null,'\t')}}</pre>
   </div>
 </template>
 <script>
@@ -30,8 +12,20 @@
     name: 'App',
     data: function () {
       return {
-        counter: 4,
-        ta: [1, 2, 3]
+        year:1980,
+        stats:{}
+      }
+    },
+    methods:{
+      add:function(){
+        this.$set(this.stats,this.year++,Math.floor(Math.random()*1000))
+      },
+      del:function(){
+        var keys = Object.keys(this.stats);
+        this.$delete(this.stats,keys[0]);
+      },
+      upd:function(){
+        this.stats[this.year-1] && (this.stats[this.year-1] = Math.floor(Math.random()*1000));
       }
     }
   }
