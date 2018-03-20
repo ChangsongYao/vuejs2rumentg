@@ -1,10 +1,9 @@
 <template>
-  <div id="counter">
-    <h1>{{count}}</h1>
-    <h2>RENDER</h2>
-    <pre>{{$options.render}}</pre>
-    <h2>WATCHER</h2>
-    <pre>{{_watcher ? _watcher.getter : ''}}</pre>
+  <div>
+    <div id="app">
+      <div class="ez-counter" ref="counter">{{counter}}</div>
+    </div>
+    <div id="log"></div>
   </div>
 </template>
 <script>
@@ -13,13 +12,18 @@
     name: 'App',
     data: function () {
       return {
-        count: 0
+        counter: 0
       }
     },
-    created:function(){
+    mounted:function(){
+      this.$refs.counter._data_ = "HIDDEN TAG";
       setInterval(function(){
-        this.count++;
+        this.counter++;
       }.bind(this),1000);
+    },
+    updated:function(){
+      var el = document.querySelector('#log');
+      el.textContent = this.$refs.counter._data_;
     }
   }
 
@@ -27,4 +31,9 @@
 </script>
 
 <style>
+  .ez-counter{
+    font-family:LED;
+    font-size:60px;
+  }
+
 </style>
