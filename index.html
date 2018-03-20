@@ -4,56 +4,52 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
+  <link rel="stylesheet" href="static/lib/font-awesome.css">
 </head>
 <style>
-  #app{
-    font-family:LED;
-    font-size:60px;
-    letter-spacing:10px;
+  html,body,#app{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background:black;
+  }
+  #app span{
+    position:absolute;
+    color:red;
+  }
+  #app .log{
+    color:white;
   }
 
 </style>
 <body>
-<div id="app"></div>
-
+<div id="app">
+  <div class="log"></div>
+  <span class="fa fa-circle"></span>
+</div>
 <!-- built files will be auto injected -->
 <script src="static/lib/vue.js"></script>
 <script>
-  var EzVue = function(options){
-    var self = this;
-    var keys = Object.keys(options.data);
-    this._data = {};
-    keys.forEach(function(key){
-      Object.defineProperty(self,key,{
-        enumerable:true,
-        configurable:true,
-        get:function(){
-          return self['_data'][key];
-        },
-        set:function(v){
-          self['_data'][key] = v;
-          options.changed && options.changed.call(this,key,v)
-        }
-      })
-      self[key] = options.data[key];
-    })
-    options.created && options.created.call(this);
-  }
-
-  new EzVue({
-    data: {
-      counter:123,
-    },
-    changed: function(key,v){
-      var el = document.querySelector('#app');
-      el.textContent = v;
-    },
+  var w = document.body.clientWidth,
+    h = document.body.clientHeight;
+  var vm = new Vue({
+    data: {x: 0,y: 0},
     created:function(){
-      setInterval(function(){
-        this.counter++;
-      }.bind(this),1000)
+      requestAnimationFrame(function step(){
+        vm.x = (vm.x + 5) % w;
+        vm.y = Math.floor(Math.sin(0.02*vm.x) * h/2 + h/2);
+        requestAnimationFrame(step);
+      });
     }
   });
+
+  vm.$watch(function(){
+    var el = document.querySelector('#app span');
+    el.style.left = vm.x + 'px';
+    el.style.top = vm.y + 'px';
+  })
 </script>
 </body>
 </html>
