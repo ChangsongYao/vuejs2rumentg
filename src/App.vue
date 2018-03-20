@@ -1,6 +1,27 @@
 <template>
   <div id="app">
-    <div class="ez-clock"></div>
+    <div class="normal">
+      <span>常规</span>
+      <button @click="ta=ta.filter((d)=>d<counter-2)">filter()</button>
+      <button @click="ta=ta.concat([counter++,counter++])">concat()</button>
+      <button @click="ta=ta.slice(1)">slice()</button>
+    </div>
+    <div class="patched">
+      <span>补丁</span>
+      <button @click="ta.push(counter++)">push()</button>
+      <button @click="ta.pop()">pop()</button>
+      <button @click="ta.unshift(counter++)">unshift()</button>
+      <button @click="ta.shift()">shift()</button>
+      <button @click="ta.splice(0,1,counter++)">splice()</button>
+      <button @click="ta.sort((d1,d2)=>d2-d1)">sort()</button>
+      <button @click="ta.reverse()">reverse()</button>
+    </div>
+    <div class="noway">
+      <span>失败</span>
+      <button @click="ta[0]=798">ta[0]=798</button>
+      <button @click="ta.length=100">ta.length=100</button>
+    </div>
+    <p>ta: {{ta}}</p>
   </div>
 </template>
 <script>
@@ -9,17 +30,8 @@
     name: 'App',
     data: function () {
       return {
-        time:new Date()
-      }
-    },
-    created:function(){
-      setInterval(function(){
-        this.time = new Date();
-      }.bind(this),1000)
-    },
-    computed:{
-      aligned:function(){
-        return moment(this.time).format('LTS');
+        counter: 4,
+        ta: [1, 2, 3]
       }
     }
   }
@@ -28,14 +40,4 @@
 </script>
 
 <style>
-  .ez-clock {
-    font-family: LED;
-    font-size: 60px;
-    background: #98b598;
-    padding: 20px;
-    padding-left: 100px;
-    display: inline-block;
-    letter-spacing: 10px;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
-  }
 </style>

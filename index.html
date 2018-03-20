@@ -4,68 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
-  <link rel="stylesheet" href="static/lib/font-awesome.css">
 </head>
 <style>
-  #app{
-    font-family:LED;
-    font-size:60px;
-    letter-spacing:10px;
-  }
-
 
 </style>
 <body>
-<div id="app"></div>
+<div id="app">
+</div>
 <!-- built files will be auto injected -->
-<script src="static/lib/vue.js"></script>
 <script>
-  var EzVue = function(options){
-    var self = this;
-    var keys = Object.keys(options.data);
-    this._data = {};
-    this._deps = {};
-    this._target = undefined;
-    keys.forEach(function(key){
-      Object.defineProperty(self,key,{
-        enumerable:true,
-        configurable:true,
-        get:function(){
-          if(self._target){
-            self._deps[key] || (self._deps[key] = []);
-            self._deps[key].push(self._target);
-          }
-          return self['_data'][key];
-        },
-        set:function(v){
-          self['_data'][key] = v;
-          self._deps[key] && self._deps[key].forEach(function(dep){ dep.call(self) })
-        }
-      })
-      self[key] = options.data[key];
-    })
-    if(options.watch){
-      this._target = options.watch;
-      options.watch.call(this);
-      this._target = undefined;
-    }
-    options.created && options.created.call(this);
-  };
-
-  var vm = new EzVue({
-    data: {
-      counter:123,
-    },
-    watch: function(){
-      var el = document.querySelector('#app');
-      el.textContent = this.counter;
-    },
-    created:function(){
-      setInterval(function(){
-        this.counter++;
-      }.bind(this),1000)
-    }
-  });
 </script>
 </body>
 </html>
