@@ -9,48 +9,24 @@
 <body>
 <!--<div id="app">{{counter}}</div>-->
 <div id="app">
-  <button v-on:click="counter++">单步计数</button>
-  <div class="counter">{{counter}}</div>
+  <h1>计算属性</h1>
+  <input v-model.number="x"> +
+  <input v-model.number="y"> =
+  {{z}}
 </div>
-
-<div id="tool">
-  <button onclick="vm.$destroy()">销毁Vue实例</button>
-  <button onclick="vm.$mount('#app')">重新挂载Vue实例</button>
-  <button onclick="clearLogs()">清理日志</button>
-</div>
-
-<div id="logs"></div>
 <!-- built files will be auto injected -->
 <script src="static/lib/vue.js"></script>
 <script>
-  var idx = 1;
-  var log = function(hook){
-    return function(){
-      var host = document.querySelector('#logs');
-      var el = document.createElement('div');
-      el.textContent = idx + ' ' + hook;
-      host.prepend(el);
-      idx++;
-    }
-  };
-
-  var clearLogs = function(){
-    var host = document.querySelector('#logs');
-    host.innerHTML = "";
-  };
-
-  var vm = new Vue({
-    el:'#app',
-    data:{counter:0,flag:true},
-    beforeCreate:log('beforeCreate'),
-    created:log('created'),
-    beforeMount:log('beforeMount'),
-    mounted:log('mounted'),
-    beforeUpdate:log('beforeUpdate'),
-    updated:log('updated'),
-    beforeDestroy:log('beforeDestroy'),
-    destroyed:log('destroyed')
-  })
+  new Vue({
+    data: {
+      x: 123,
+      y: 456
+    },
+    computed:{
+      z: function(){ return this.x + this.y }
+    },
+    el:'#app'
+  });
 </script>
 </body>
 </html>
