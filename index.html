@@ -9,26 +9,28 @@
 </head>
 <body>
 <!--<div id="app">{{counter}}</div>-->
-<h1 id="app">{{time|tformat('hh:mm:ss A')}}</h1>
+<h1 id="app">{{title | capitalize | author}}</h1>
 
 <!-- built files will be auto injected -->
 <script src="static/lib/vue.js"></script>
 <script>
   new Vue({
     data:{
-      time: new Date()
+      title: 'more war planes sent to iraq'
     },
     filters:{
-      tformat:function(v,fmt){
-        return moment(v).format(fmt);
+      capitalize:function(v){
+        return v.split(' ')
+          .map(function(w){
+            return w.charAt(0).toUpperCase() + w.slice(1);
+          })
+          .join(' ');
+      },
+      author:function(v){
+        return v + ' [ by Jennifer ] ';
       }
     },
-    el: '#app',
-    created:function(){
-      setInterval(function(){
-        this.time = new Date();
-      }.bind(this),1000);
-    },
+    el: '#app'
   });
 </script>
 </body>
