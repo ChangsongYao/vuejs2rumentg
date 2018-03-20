@@ -3,26 +3,3 @@
 import Vue from 'vue'
 
 Vue.config.productionTip = false
-
-import App from './App'
-/* eslint-disable no-new */
-
-var vm = new Vue({
-  el: '#app',
-  data:function () {
-    return{
-      counter:0
-    }
-  },
-  methods:{
-    reset:function(){
-      this.counter = 0;
-    }
-  }
-})
-
-setInterval(function(){
-  vm.counter++;
-},100)
-
-

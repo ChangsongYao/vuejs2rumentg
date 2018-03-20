@@ -4,13 +4,53 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
+  <link rel="stylesheet" href="static/lib/led.css">
 </head>
 <body>
 <!--<div id="app">{{counter}}</div>-->
 <div id="app">
-  <button @click="reset">复位计数器</button>
+  <button v-on:click="counter++">单步计数</button>
   <div class="counter">{{counter}}</div>
 </div>
+
+<div id="tool">
+  <button onclick="vm.$destroy()">销毁Vue实例</button>
+  <button onclick="vm.$mount('#app')">重新挂载Vue实例</button>
+  <button onclick="clearLogs()">清理日志</button>
+</div>
+
+<div id="logs"></div>
 <!-- built files will be auto injected -->
+<script src="static/lib/vue.js"></script>
+<script>
+  var idx = 1;
+  var log = function(hook){
+    return function(){
+      var host = document.querySelector('#logs');
+      var el = document.createElement('div');
+      el.textContent = idx + ' ' + hook;
+      host.prepend(el);
+      idx++;
+    }
+  };
+
+  var clearLogs = function(){
+    var host = document.querySelector('#logs');
+    host.innerHTML = "";
+  };
+
+  var vm = new Vue({
+    el:'#app',
+    data:{counter:0,flag:true},
+    beforeCreate:log('beforeCreate'),
+    created:log('created'),
+    beforeMount:log('beforeMount'),
+    mounted:log('mounted'),
+    beforeUpdate:log('beforeUpdate'),
+    updated:log('updated'),
+    beforeDestroy:log('beforeDestroy'),
+    destroyed:log('destroyed')
+  })
+</script>
 </body>
 </html>
