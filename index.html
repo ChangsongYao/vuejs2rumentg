@@ -4,24 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
+  <link rel="stylesheet" href="static/lib/led.css">
+  <script src="static/lib/moment.min.js"></script>
 </head>
 <body>
 <!--<div id="app">{{counter}}</div>-->
-<h1 id="app">{{title | upper}}</h1>
+<h1 id="app">{{time|tformat('hh:mm:ss A')}}</h1>
 
 <!-- built files will be auto injected -->
 <script src="static/lib/vue.js"></script>
 <script>
   new Vue({
     data:{
-      title: 'this is a demo'
+      time: new Date()
     },
     filters:{
-      upper:function(v){
-        return v.toUpperCase();
+      tformat:function(v,fmt){
+        return moment(v).format(fmt);
       }
     },
     el: '#app',
+    created:function(){
+      setInterval(function(){
+        this.time = new Date();
+      }.bind(this),1000);
+    },
   });
 </script>
 </body>
