@@ -4,26 +4,49 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
-  <link rel="stylesheet" href="static/lib/led.css">
+  <style>input{width:100px}</style>
 </head>
 <body>
 <!--<div id="app">{{counter}}</div>-->
 <div id="app">
-  <h1>计算属性</h1>
+  <h1>{{title}}</h1>
+  <button @click="$forceUpdate()">强制刷新</button>
   <input v-model.number="x"> +
   <input v-model.number="y"> =
-  {{z}}
+  {{z_computed}} / {{z_method()}}
+</div>
+
+<div id="logs">
+  <p>计算属性调用: <span id="computed"></span> </p>
+  <p>实例方法调用: <span id="method"></span></p>
 </div>
 <!-- built files will be auto injected -->
 <script src="static/lib/vue.js"></script>
 <script>
+  var log = function(type){
+    var el = document.querySelector('#' + type);
+    var counter = el._counter_ ? +el._counter_ : 0;
+    el._counter_ = counter + 1;
+    el.textContent = el._counter_;
+  }
+
   new Vue({
     data: {
       x: 123,
-      y: 456
+      y: 456,
+      title:'计算属性 vs. 示例方法'
     },
     computed:{
-      z: function(){ return this.x + this.y }
+      z_computed: function(){
+        log('computed');
+        return this.x + this.y
+      }
+    },
+    methods:{
+      z_method: function(){
+        log('method');
+        return this.x + this.y
+      }
     },
     el:'#app'
   });
