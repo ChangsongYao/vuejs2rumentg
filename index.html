@@ -4,16 +4,50 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
+  <!--<link rel="stylesheet" href="static/lib/led.css">-->
   <script src="static/lib/moment.min.js"></script>
 </head>
+<style>
+  .ez-clock{
+    font-family:LED;
+    font-size:60px;
+    background:#98b598;
+    padding:20px;
+    padding-left:100px;
+    display:inline-block;
+    letter-spacing:10px;
+    box-shadow:1px 1px 1px rgba(0,0,0,1);
+  }
+
+</style>
 <body>
 <div id="app">
+  <div class="ez-clock"></div>
 </div>
 
 <!-- built files will be auto injected -->
 <script src="static/lib/vue.js"></script>
 <script>
+  var vm = new Vue({
+    data:{
+      time:new Date()
+    },
+    created:function(){
+      setInterval(function(){
+        this.time = new Date();
+      }.bind(this),1000)
+    },
+    computed:{
+      aligned:function(){
+        return moment(this.time).format('LTS');
+      }
+    }
+  });
 
+  vm.$watch('aligned',function(nv){
+    var el = document.querySelector('.ez-clock');
+    el.textContent = nv;
+  },{immediate:true})
 </script>
 </body>
 </html>

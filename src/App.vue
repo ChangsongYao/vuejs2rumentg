@@ -1,5 +1,7 @@
 <template>
-  <div class="ez-clock">{{time | tformat('LTS')}}</div>
+  <div id="app">
+    <div class="ez-clock"></div>
+  </div>
 </template>
 <script>
 
@@ -7,17 +9,17 @@
     name: 'App',
     data: function () {
       return {
-        time: new Date()
+        time:new Date()
       }
     },
-    mounted: function () {
-      setInterval(function () {
+    created:function(){
+      setInterval(function(){
         this.time = new Date();
-      }.bind(this), 1000)
+      }.bind(this),1000)
     },
-    filters: {
-      tformat: function (d, fmt) {
-        return moment(d).format(fmt);
+    computed:{
+      aligned:function(){
+        return moment(this.time).format('LTS');
       }
     }
   }
