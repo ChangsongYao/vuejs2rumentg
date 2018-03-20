@@ -6,7 +6,11 @@
   <title>vuejs2rumentg</title>
 </head>
 <body>
-<div id="app">{{counter}}</div>
+<!--<div id="app">{{counter}}</div>-->
+<div id="app">
+  <button v-on:click="counter=0">复位计数器</button>
+  <div class="counter">{{counter}}</div>
+</div>
 <!-- built files will be auto injected -->
 </body>
 </html>
