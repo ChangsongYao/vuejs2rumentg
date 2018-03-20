@@ -4,68 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
-  <style>
-    input{width:100px}
-    #app{
-      position:relative;
-    }
-    #app:after{
-      content:' ';
-      position:absolute;
-      height:300px;
-      z-index:100;
-      left:0;bottom:0;right:0;
-      background-image: linear-gradient(rgba(255,255,255,0),rgba(200,200,200,1));
-    }
-  </style>
 </head>
 <body>
 <!--<div id="app">{{counter}}</div>-->
-<div id="app">
-  <h1>可写计算属性</h1>
-  <div>
-    <label>Recipient Full Name</label>
-    <input v-model.lazy="fullName" placeholder="Full Name">
-  </div>
-  <hr>
-  <p>Dear Mr./Ms. <b>{{lastName}}</b>, </p>
-  <p>I appreciated the opportunity to meet with you yesterday about the
-    position of Senior Sales Manager with Hubwiz.com. </p>
-  <p>I really enjoyed meeting with members of the office and learning
-    about the job. The entire team certainly seem to be highly skilled
-    and motivated and the work itself seems as rewarding as it is challenging.
-    From our discussion,I gained a strong sense of Hubwiz.com's commitment
-    to their clients and their employees. I also enjoyed our discussion of my
-    opportunities and future within the firm. </p>
-  <p>I feel strongly that I possess the qualities required as a Senior Sales Manager.
-    I believe my education and experiences have prepared me well for a future
-    with you. I eagerly anticipate our next meeting. Thank you for considering
-    me for this opportunity. </p>
-  <p>Sincerely,</p>
-  <p>Rose Jean</p>
+<h1 id="app">{{title | upper}}</h1>
 
-</div>
 <!-- built files will be auto injected -->
 <script src="static/lib/vue.js"></script>
 <script>
-  var vm = new Vue({
-    data: {
-      firstName: 'Elthon',
-      lastName:'John'
+  new Vue({
+    data:{
+      title: 'this is a demo'
     },
-    computed:{
-      fullName:{
-        get:function(){
-          return [this.firstName,this.lastName].join(' ');
-        },
-        set:function(nv){
-          var parts = nv.split(' ');
-          this.firstName = parts[0];
-          this.lastName = parts[1];
-        }
+    filters:{
+      upper:function(v){
+        return v.toUpperCase();
       }
     },
-    el:'#app'
+    el: '#app',
   });
 </script>
 </body>
