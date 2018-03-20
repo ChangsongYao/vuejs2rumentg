@@ -13,6 +13,11 @@ var vm = new Vue({
     return{
       counter:0
     }
+  },
+  methods:{
+    reset:function(){
+      this.counter = 0;
+    }
   }
 })
 
