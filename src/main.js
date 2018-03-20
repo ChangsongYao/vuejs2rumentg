@@ -7,10 +7,17 @@ Vue.config.productionTip = false
 import App from './App'
 /* eslint-disable no-new */
 
-new Vue({
+var vm = new Vue({
   el: '#app',
-  components:{App},
-  template:'<App/>'
+  data:function () {
+    return{
+      counter:0
+    }
+  }
 })
+
+setInterval(function(){
+  vm.counter++;
+},100)
 
 
