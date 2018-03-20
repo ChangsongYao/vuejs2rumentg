@@ -4,50 +4,56 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
-  <!--<link rel="stylesheet" href="static/lib/led.css">-->
-  <script src="static/lib/moment.min.js"></script>
 </head>
 <style>
-  .ez-clock{
+  #app{
     font-family:LED;
     font-size:60px;
-    background:#98b598;
-    padding:20px;
-    padding-left:100px;
-    display:inline-block;
     letter-spacing:10px;
-    box-shadow:1px 1px 1px rgba(0,0,0,1);
   }
 
 </style>
 <body>
-<div id="app">
-  <div class="ez-clock"></div>
-</div>
+<div id="app"></div>
 
 <!-- built files will be auto injected -->
 <script src="static/lib/vue.js"></script>
 <script>
-  var vm = new Vue({
-    data:{
-      time:new Date()
+  var EzVue = function(options){
+    var self = this;
+    var keys = Object.keys(options.data);
+    this._data = {};
+    keys.forEach(function(key){
+      Object.defineProperty(self,key,{
+        enumerable:true,
+        configurable:true,
+        get:function(){
+          return self['_data'][key];
+        },
+        set:function(v){
+          self['_data'][key] = v;
+          options.changed && options.changed.call(this,key,v)
+        }
+      })
+      self[key] = options.data[key];
+    })
+    options.created && options.created.call(this);
+  }
+
+  new EzVue({
+    data: {
+      counter:123,
+    },
+    changed: function(key,v){
+      var el = document.querySelector('#app');
+      el.textContent = v;
     },
     created:function(){
       setInterval(function(){
-        this.time = new Date();
+        this.counter++;
       }.bind(this),1000)
-    },
-    computed:{
-      aligned:function(){
-        return moment(this.time).format('LTS');
-      }
     }
   });
-
-  vm.$watch('aligned',function(nv){
-    var el = document.querySelector('.ez-clock');
-    el.textContent = nv;
-  },{immediate:true})
 </script>
 </body>
 </html>
