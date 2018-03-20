@@ -1,9 +1,10 @@
 <template>
-  <div id="app">
-    <button @click="add">添加</button>
-    <button @click="del">删除</button>
-    <button @click="upd">更新最后一年数据</button>
-    <pre>{{JSON.stringify(stats,null,'\t')}}</pre>
+  <div id="counter">
+    <h1>{{count}}</h1>
+    <h2>RENDER</h2>
+    <pre>{{$options.render}}</pre>
+    <h2>WATCHER</h2>
+    <pre>{{_watcher ? _watcher.getter : ''}}</pre>
   </div>
 </template>
 <script>
@@ -12,21 +13,13 @@
     name: 'App',
     data: function () {
       return {
-        year:1980,
-        stats:{}
+        count: 0
       }
     },
-    methods:{
-      add:function(){
-        this.$set(this.stats,this.year++,Math.floor(Math.random()*1000))
-      },
-      del:function(){
-        var keys = Object.keys(this.stats);
-        this.$delete(this.stats,keys[0]);
-      },
-      upd:function(){
-        this.stats[this.year-1] && (this.stats[this.year-1] = Math.floor(Math.random()*1000));
-      }
+    created:function(){
+      setInterval(function(){
+        this.count++;
+      }.bind(this),1000);
     }
   }
 
