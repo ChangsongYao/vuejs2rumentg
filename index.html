@@ -5,16 +5,104 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
   <!--<link rel="stylesheet" href="static/lib/led.css">-->
-  <!--<script src="static/lib/vue.js"></script>-->
+  <script src="static/lib/vue.js"></script>
 </head>
 <style>
+  .tabs-header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tabs-header ul li {
+    display: inline-block;
+    padding: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .tabs-header ul li.active {
+    border-bottom: 2px solid black;
+  }
 
 </style>
 <body>
 <div id="app">
+  <ez-tabs active="0">
+    <ez-tab-pane label="TAB 1"><h1>1</h1></ez-tab-pane>
+    <ez-tab-pane label="TAB 2"><h1>2</h1></ez-tab-pane>
+    <ez-tab-pane label="TAB 3"><h1>3</h1></ez-tab-pane>
+  </ez-tabs>
 </div>
+
+<template id="tpl-tabs">
+  <div class="tabs">
+    <div class="tabs-header">
+      <ul>
+        <li v-for="(pane,idx) in panes" @click="activate(idx)" :class="{active:idx==activeIdx}">{{pane.label}}</li>
+      </ul>
+    </div>
+    <div class="tabs-content">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-tab-pane">
+  <div class="tab-pane" v-show="flag">
+    <slot></slot>
+  </div>
+</template>
 <!-- built files will be auto injected -->
 <script>
+  var EzTabs = {
+    template: '#tpl-tabs',
+    props: ['active'],
+    data: function () {
+      return {
+        activeIdx: 0,
+        panes: []
+      }
+    },
+    mounted: function () {
+      this.activeIdx = this.active;
+      this.activate(this.activeIdx);
+    },
+    methods: {
+      activate: function (idx) {
+        this.panes.forEach(function (pane) {
+          pane.switch(false)
+        });
+        this.panes[idx].switch(true);
+        this.activeIdx = idx;
+      }
+    }
+  };
+  var EzTabPane = {
+    template: '#tpl-tab-pane',
+    props: ['label'],
+    data: function () {
+      return {
+        flag: false
+      }
+    },
+    mounted: function () {
+      this.$parent.panes.push(this);
+    },
+    methods: {
+      switch: function (flag) {
+        this.flag = flag;
+      }
+    }
+  }
+
+  new Vue({
+    el: '#app',
+    components: {
+      'ez-tabs': EzTabs,
+      'ez-tab-pane': EzTabPane
+    }
+  })
 </script>
 </body>
 </html>

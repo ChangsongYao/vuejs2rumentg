@@ -7,7 +7,8 @@ import 'font-awesome/css/font-awesome.css'
 Vue.config.productionTip = false
 
 new Vue({
-  el: '#app',
-  components: {App},
-  template: '<App/>'
+  el: '#app'
+  // ,
+  // components: {App},
+  // template: '<App/>'
 })
