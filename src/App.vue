@@ -1,20 +1,26 @@
 <template>
   <div id="app">
-    <ez-comp ez-message="WHO ARE YOU?"/>
+    <button @click="activeView='comp1'">1</button>
+    <button @click="activeView='comp2'">2</button>
+    <keep-alive>
+      <component :is="activeView"/>
+    </keep-alive>
   </div>
 </template>
 <script>
-  import EzComp from './components/EzComp'
+  import Comp1 from './components/Comp1'
+  import Comp2 from './components/Comp2'
 
   export default {
     name: 'App',
     data: function () {
         return{
-          
+          activeView: 'comp1'
         }
     },
     components:{
-      'ez-comp': EzComp
+      'comp1': Comp1,
+      'comp2': Comp2
     }
   }
 
