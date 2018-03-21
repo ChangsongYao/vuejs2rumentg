@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <h1>人口统计数据(万人)</h1>
-    <ul class="meta"></ul>
-    <table>
-      <tr><td>年度</td><td>人口数</td></tr>
-      <tr v-for="(population,year) in stats">
-        <td>{{year}}</td><td>{{population}}</td>
-      </tr>
-    </table>
+    <div>
+      <button @click="add">ADD</button>
+      <button @click="remove">REMOVE</button>
+    </div>
+    <p>
+      <span v-for="i in k">{{i}}</span>
+    </p>
+    <div class="toolbar"></div>
   </div>
 </template>
 <script>
@@ -18,21 +18,12 @@
     name: 'App',
     data: function () {
       return {
-        stats:{
-          '2000':126743,
-          '2001':127627,
-          '2002':128453,
-          '2003':129227,
-          '2004':129988,
-          '2005':130756,
-          '2006':131448,
-        },
-        meta:{
-          '统计人':'小明',
-          '数据来源':'自编',
-          '统计时间':'2017'
-        }
+        k:5
       }
+    },
+    methods:{
+      add:function(){ this.k++},
+      remove:function(){this.k = this.k>0?this.k-1:this.k}
     }
   }
 
@@ -40,12 +31,5 @@
 </script>
 
 <style>
-  #app table{
-    width:300px;
-    border-collapse:collapse;
-    border-top:1px solid #777;
-  }
-  #app table td{
-    border-bottom:1px solid #777;
-  }
+  #app span{display:inline-block;background:#f0f0f0;margin-right:10px;padding:0 10px;}
 </style>
