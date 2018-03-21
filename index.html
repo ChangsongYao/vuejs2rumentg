@@ -13,38 +13,28 @@
 </style>
 <body>
 <div id="app">
-  <button @click="flag=!flag">TOGGLE</button>
-  <input v-hook v-model="title" v-if="flag">
+  <div class="test" v-hook:hi.format.done="counter"></div>
 </div>
-<div id="logs"></div>
 <!-- built files will be auto injected -->
 <script>
-  var idx = 1;
-  var log = function(hook){
-    return function(){
-      var host = document.querySelector('#logs');
-      var el = document.createElement('div');
-      el.innerHTML = '<div class="log">' + (idx++) + ' ' + hook + '</div>';
-      host.prepend(el);
-    }
-  };
   var EzHook = {
-    bind: log('bind'),
-    inserted: log('inserted'),
-    update: log('update'),
-    componentUpdated: log('componentUpdated'),
-    unbind: log('unbind')
-  }
-
-  new Vue({
-    data:{
-      title:'nonsense words',
-      flag: true,
+    bind: function(el,binding,vnode,oldVnode){
+      var s = JSON.stringify
+      el.innerHTML =
+        '<b>name: </b>'       + s(binding.name) + '<br>' +
+        '<b>value: </b>'      + s(binding.value) + '<br>' +
+        '<b>expression: </b>' + s(binding.expression) + '<br>' +
+        '<b>argument: </b>'   + s(binding.arg) + '<br>' +
+        '<b>modifiers: </b>'  + s(binding.modifiers) + '<br>' +
+        '<b>vnode keys: </b>' + Object.keys(vnode).join(', ')
     },
+  }
+  new Vue({
+    el:'#app',
+    data:{counter:123},
     directives:{
       'hook':EzHook
-    },
-    el:'#app'
+    }
   });
 </script>
 </body>
