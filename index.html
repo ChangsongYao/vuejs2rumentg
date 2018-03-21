@@ -5,15 +5,54 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
   <!--<link rel="stylesheet" href="static/lib/led.css">-->
-  <!--<script src="static/lib/vue.js"></script>-->
-  <link rel="stylesheet" href="static/lib/animate.css">
+  <script src="static/lib/vue.js"></script>
+  <!--<link rel="stylesheet" href="static/lib/animate.css">-->
 </head>
 <style>
 </style>
 <body>
-<div id="app"></div>
+<div id="app">
+  <button @click="flag=!flag">切换 隐藏/显示</button>
+  <transition name="demo"
+              @before-enter="beforeEnter"
+              @enter="enter"
+              @after-enter="afterEnter"
+              @enter-canceled="enterCanceled"
+              @before-leave="beforeLeave"
+              @leave="leave"
+              @after-leave="afterLeave"
+              @leave-canceled="leaveCanceled">
+    <b v-show="flag" class="target">HELLO</b>
+  </transition>
+</div>
+<div id="logs"></div>
 <!-- built files will be auto injected -->
 <script>
+  var idx = 1;
+  var log = function (evt) {
+    return function (el, done) {
+      var host = document.querySelector('#logs');
+      var e = document.createElement('div');
+      e.textContent = [idx++, evt].join(' ');
+      host.prepend(e);
+      done && done();
+    }
+  };
+
+  new Vue({
+    el: '#app',
+    data: {flag: true},
+    methods: {
+      beforeEnter: log('before-enter'),
+      enter: log('enter'),
+      afterEnter: log('after-enter'),
+      enterCanceled: log('enter-canceled'),
+      beforeLeave: log('before-leave'),
+      leave: log('leave'),
+      afterLeave: log('after-leave'),
+      leaveCanceled: log('leave-canceled'),
+    }
+  })
 </script>
 </body>
 </html>
