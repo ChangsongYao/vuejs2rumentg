@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <h4>
-      style属性绑定
-      <button @click="fly"> 让我飞！</button>
+      class属性绑定
+      <button @click="rotate=!rotate">切换旋转状态</button>
     </h4>
-    <img class="bird" src="../static/img/bird.jpg" :style="pos">
+    <img class="bird" src="../static/img/bird.jpg" :class="{rotate:rotate}">
   </div>
 </template>
 <script>
@@ -15,20 +15,7 @@
     name: 'App',
     data: function () {
       return {
-        x:0,y:200,
-        w:document.body.clientWidth,
-        h:document.body.clientHeight
-      }
-    },
-    computed:{
-      pos:function(){
-        return {left:this.x+'px',top:this.y+'px'}
-      }
-    },
-    methods:{
-      fly:function(){
-        this.x = Math.floor(Math.random()*this.w);
-        this.y = Math.floor(Math.random()*this.h);
+        rotate:false
       }
     }
   }
@@ -46,4 +33,12 @@
     width:100px;
     transition:all 1s;
   }
+  .rotate{
+    animation: turn 1s linear infinite;
+  }
+  @keyframes turn{
+    0%{transform:rotate(0deg)}
+    100%{transform:rotate(360deg)}
+  }
+
 </style>
