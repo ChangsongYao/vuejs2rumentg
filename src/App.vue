@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <h4>
-      class属性绑定
-      <button @click="rotate=!rotate">切换旋转状态</button>
-    </h4>
-    <img class="bird" src="../static/img/bird.jpg" :class="{rotate:rotate}">
+    <h4>正常绑定</h4>
+    <p>{{t}}</p>
+    <h4>v-pre</h4>
+    <p v-pre>{{t}}</p>
+    <h4>v-once</h4>
+    <p v-once>{{t}}</p>
   </div>
 </template>
 <script>
@@ -15,7 +16,17 @@
     name: 'App',
     data: function () {
       return {
-        rotate:false
+        time:new Date()
+      }
+    },
+    created:function(){
+      setInterval(function(){
+        this.time = new Date();
+      }.bind(this),1000);
+    },
+    computed:{
+      t:function(){
+        return [this.time.getHours(),this.time.getMinutes(),this.time.getSeconds()].join(':')
       }
     }
   }
