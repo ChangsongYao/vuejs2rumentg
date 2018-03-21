@@ -10,40 +10,17 @@
   <script src="static/lib/masonry.pkgd.js"></script>
 </head>
 <style>
+  img{
+    width:100%;
+  }
 </style>
 <body>
 <div id="app">
-  <div v-layout>
-    <img class="item" v-for="i in 11" :src="'static/img/art-'+i+'.jpg'" v-tile>
-  </div>
+  <img src="static/img/lego.jpg">
 </div>
 <!-- built files will be auto injected -->
 <script>
-  var EzLayout = {
-    bind: function(el,binding,vnode){
-      var msnry = new Masonry( el, {
-        itemSelector: '.item',
-        columnWidth: 150
-      });
-      vnode.context.$on('loaded',function(){
-        msnry.layout();
-      })
-    }
-  }
-  var EzTile = {
-    bind: function(el,binding,vnode){
-      el.onload = function(){
-        vnode.context.$emit('loaded');
-      }
-    }
-  }
-  new Vue({
-    el:'#app',
-    directives:{
-      'layout':EzLayout,
-      'tile':EzTile
-    }
-  })
+
 </script>
 </body>
 </html>
