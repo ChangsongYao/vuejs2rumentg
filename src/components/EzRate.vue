@@ -1,6 +1,3 @@
-<!--<template>-->
-<!--</template>-->
-
 <script>
   export default {
     name: "ez-rate",
@@ -41,15 +38,17 @@
 </script>
 
 <style scoped>
-  .ez-rate span{
-    margin-left:10px;
+  .ez-rate span {
+    margin-left: 10px;
   }
-  .star{
-    color:#f0f0f0;
-    cursor:pointer;
-    font-size:25px;
+
+  .star {
+    color: #f0f0f0;
+    cursor: pointer;
+    font-size: 25px;
   }
-  .star.active{
-    color:#ff8109;
+
+  .star.active {
+    color: #ff8109;
   }
 </style>
