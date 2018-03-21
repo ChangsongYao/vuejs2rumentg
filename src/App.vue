@@ -1,7 +1,10 @@
 <template>
-  <div id="app">
-    <ez-gauge :value="v"></ez-gauge>
-    <input v-model.number="v" type="number">
+  <div id="app" tabindex="0" @keydown.down="v--"  @keydown.up="v++">
+    <button @click="v--"> &darr; 刹车</button>
+    <label class="v">{{v}}</label>
+    <button @click="v++"> &uarr; 油门</button>
+    <span class="status">{{status}}</span>
+    <ez-gauge v-model="v" @overload="onOverload"></ez-gauge>
   </div>
 </template>
 <script>
@@ -57,6 +60,7 @@
     height: 200px;
     top: 0%;
     border-radius: 250px 250px 0px 0px;
+    cursor:pointer;
   }
 
   .inner {
@@ -69,6 +73,7 @@
     margin-left: 75px;
     margin-right: auto;
     border-radius: 250px 250px 0px 0px;
+    pointer-events:none;
   }
 
   .indicator {
@@ -83,6 +88,7 @@
     border-radius: 0px 0px 200px 200px;
     transform-origin: center top;
     transition: all .1s ease-in-out;
+    pointer-events:none;
   }
 
   .indicator.overload{
@@ -106,6 +112,7 @@
     margin-left: auto;
     margin-right: auto;
     transition: all 1s ease-out;
+    pointer-events:none;
   }
   .status{
     color: red;

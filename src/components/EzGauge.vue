@@ -1,8 +1,8 @@
 <template id="tpl-gauge">
   <div class="ez-gauge">
-    <div class="outer"></div>
+    <div class="outer" @click="triggerInput"></div>
     <div class="inner"></div>
-    <div class="indicator" :style="rotateStyle"></div>
+    <div class="indicator" :style="rotateStyle" :class="{overload:overload}"></div>
     <div class="data">
       <h1>{{value}} km/h</h1>
     </div>
@@ -30,6 +30,16 @@
       value:function(nv,ov){
         if(nv >= this.thresh && ov < this.thresh) this.$emit('overload',true);
         if(nv < this.thresh && ov >= this.thresh) this.$emit('overload',false);
+      }
+    },
+    methods:{
+      triggerInput:function(evt){
+        var x = evt.offsetX - 200;
+        var y = 200 - evt.offsetY;
+        var angel = Math.PI - Math.atan(y/x);
+        angel = angel > Math.PI ? angel-Math.PI : angel;
+        var val = Math.floor(angel * (this.max-this.min) / Math.PI);
+        this.$emit('input',val);
       }
     }
   }
