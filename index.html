@@ -7,35 +7,53 @@
   <!--<script src="static/lib/velocity.js"></script>-->
   <!--<link rel="stylesheet" href="static/lib/led.css">-->
   <script src="static/lib/vue.js"></script>
-  <!--<link rel="stylesheet" href="static/lib/animate.css">-->
+  <link rel="stylesheet" href="static/lib/animate.css">
 </head>
 <style>
-  #app{overflow:hidden}
-  img{width:50%}
-  .demo-enter-active,.demo-leave-active{transition:opacity 1s;}
-  .demo-enter,.demo-leave-to{opacity:0}
+  #app span{
+    display:inline-block;
+    margin-right:5px;
+    background:#f1bb4e;
+    border-radius:50%;
+    padding:5px;
+  }
+  .demo-enter-active,.demo-leave-active{
+    transition:all 1s;
+  }
+  .demo-enter,.demo-leave-to{
+    opacity:0;
+    transform:translateY(30px);
+  }
+
 </style>
 <body>
-<div id="app"></div>
+<div id="app">
+  <p>
+    <button @click="add">添加</button>
+    <button @click="del">删除</button>
+  </p>
+  <transition-group tag="div" name="demo">
+    <span v-for="item in items" :key="item">{{item}}</span>
+  </transition-group>
+</div>
 
-<template id="tpl-app">
-  <div>
-    <p>
-      <button @click="flag=!flag">切换 显示/隐藏</button>
-    </p>
-    <transition name="demo" mode="out-in">
-      <img v-if="flag" key="true" src="static/img/scene-3.jpg">
-      <img v-else key="false" src="static/img/scene-2.jpg">
-    </transition>
-  </div>
-</template>
 <!-- built files will be auto injected -->
 <script>
-  var App = {
-    template: '#tpl-app',
-    data: {flag: true}
-  };
-  new Vue(App).$mount('#app');
+  new Vue({
+    el:'#app',
+    data:{items:[11,22,33,44,55,77],nextNum:80},
+    methods:{
+      randomIndex: function () {
+        return Math.floor(Math.random() * this.items.length)
+      },
+      add:function(){
+        this.items.splice(this.randomIndex(),0,this.nextNum++)
+      },
+      del:function(){
+        this.items.splice(this.randomIndex(),1);
+      }
+    }
+  });
 </script>
 </body>
 </html>
