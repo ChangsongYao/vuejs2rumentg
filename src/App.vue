@@ -1,19 +1,25 @@
 <template>
-  <div id="app" @mousemove="x=$event.pageX,y=$event.pageY">
-    <span>( {{x}} , {{y}} )</span>
-    <div class="logo">Hubwiz.com</div>
+  <div id="app">
+    <img src="../static/img/mime-sweeping.jpg" @click="draw">
+    <i class="mine fa fa-window-close"
+       v-for="(pt,idx) in points"
+       :style="{left:pt[0]+'px',top:pt[1]+'px'}">
+    </i>
   </div>
 </template>
 <script>
-  // let w = document.body.clientWidth,
-  //   h = document.body.clientHeight;
+  import 'font-awesome/css/font-awesome.css'
 
   export default {
     name: 'App',
     data: function () {
       return {
-        x: 0,
-        y: 0
+        points:[]
+      }
+    },
+    methods:{
+      draw:function(evt){
+        this.points.push([evt.pageX,evt.pageY])
       }
     }
   }
@@ -22,21 +28,28 @@
 </script>
 
 <style>
-  html,body,#app{
-    height:100%;
-    width:100%;
-    padding:0;
-    margin:0;
+  #app{
+    position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
     overflow:hidden;
-    cursor:crosshair;
   }
-  .logo{
-    font-size:80px;
-    font-family:'Comic Sans MS';
-    font-style:italic;
-    color:#eee;
-    margin-top:40px;
-    text-align:center;
-    text-shadow:2px 2px 0px #ccc;
+  #app span{
+    position:absolute;
+    left:10px;
+    top:10px;
+    border:1px solid red;
+    color:red;
+    border-radius:5px;
+    padding:5px;
+    z-index:10;
+  }
+  #app img{
+  }
+  #app .fa{
+    position:absolute;
+    color:black;
   }
 </style>
