@@ -5,19 +5,47 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
   <!--<link rel="stylesheet" href="static/lib/led.css">-->
-  <!--<script src="static/lib/vue.js"></script>-->
-  <script src="static/lib/marked.min.js"></script>
+  <script src="static/lib/vue.js"></script>
+  <!--<script src="static/lib/marked.min.js"></script>-->
 </head>
 <style>
 
 </style>
 <body>
 <div id="app">
-  <img src="static/img/gate-to-dom.jpg">
+  <button @click="flag=!flag">TOGGLE</button>
+  <input v-hook v-model="title" v-if="flag">
 </div>
+<div id="logs"></div>
 <!-- built files will be auto injected -->
 <script>
+  var idx = 1;
+  var log = function(hook){
+    return function(){
+      var host = document.querySelector('#logs');
+      var el = document.createElement('div');
+      el.innerHTML = '<div class="log">' + (idx++) + ' ' + hook + '</div>';
+      host.prepend(el);
+    }
+  };
+  var EzHook = {
+    bind: log('bind'),
+    inserted: log('inserted'),
+    update: log('update'),
+    componentUpdated: log('componentUpdated'),
+    unbind: log('unbind')
+  }
 
+  new Vue({
+    data:{
+      title:'nonsense words',
+      flag: true,
+    },
+    directives:{
+      'hook':EzHook
+    },
+    el:'#app'
+  });
 </script>
 </body>
 </html>
