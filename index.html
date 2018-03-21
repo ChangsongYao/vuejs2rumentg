@@ -5,16 +5,50 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
   <!--<link rel="stylesheet" href="static/lib/led.css">-->
-  <!--<script src="static/lib/vue.js"></script>-->
+  <script src="static/lib/vue.js"></script>
 </head>
 <style>
+  body{
+    background:url(static/img/sky.png) repeat-x;
+  }
+  .sprite{
+    background:url(static/img/spritesheet_grant.png);
+    width:165px;
+    height:292px;
+  }
 
 </style>
 <body>
 <div id="app">
+  <div>FRAME: {{idx}}</div>
+  <div class="sprite" :style="{'background-position':pos}"></div>
+</div>
 </div>
 <!-- built files will be auto injected -->
 <script>
+  var w = document.body.clientWidth;
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      idx: 0
+    },
+    computed: {
+      pos: function () {
+        var sw = 165, sh = 292;
+        var c = this.idx % 12;
+        var r = Math.floor(this.idx / 12);
+        var x = -sw * c;
+        var y = -sh * r;
+        return x + 'px ' + y + 'px';
+      }
+    },
+    mounted: function () {
+      requestAnimationFrame(function step() {
+        vm.idx = (vm.idx + 1) % 64;
+        requestAnimationFrame(step);
+      })
+    }
+  })
 </script>
 </body>
 </html>
