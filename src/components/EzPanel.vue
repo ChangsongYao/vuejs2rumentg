@@ -10,8 +10,8 @@
 <script>
   export default {
     name: "ez-panel",
-    props: {
-      title: {default: 'Panel Title', type: String}
+    props:{
+      title:{default:'Panel Title',type:String}
     }
   }
 </script>
