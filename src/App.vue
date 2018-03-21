@@ -1,59 +1,45 @@
 <template>
   <div id="app">
-    <img src="../static/img/the-road-to-ordianry.jpg" :class="{playing:playing}">
-    <span :class="{fa:true,'fa-play-circle':!playing,'fa-stop-circle':playing}"
-          @click="playing=!playing" class="control"></span>
+    <div>FRAME: {{idx}}</div>
+    <div class="sprite" :style="{'background-position':pos}"></div>
   </div>
 </template>
 <script>
   import 'font-awesome/css/font-awesome.css'
-
   export default {
     name: 'App',
     data: function () {
       return {
-        playing: false
+        idx: 0,
+        w:document.body.clientWidth
       }
+    },
+    computed:{
+      pos:function(){
+        var sw = 165,sh = 292;
+        var c = this.idx % 12;
+        var r = Math.floor(this.idx / 12);
+        var x = -sw * c;
+        var y = -sh * r;
+        return x + 'px ' + y + 'px';
+      }
+    },
+    mounted:function(){
+      requestAnimationFrame(function step(){
+        this.idx = (this.idx +1) % 64;
+        requestAnimationFrame(step);
+      })
     }
   }
 </script>
 
 <style>
-  #app {
-    transition: all .2s;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
+  body{
+    background:url(../static/img/sky.png) repeat-x;
   }
-
-  span.fa {
-    position: absolute;
-    font-size: 50px;
-    left: 78px;
-    top: 75px;
-    color: #333;
-    cursor: pointer;
-  }
-
-  img {
-    width: 100%;
-  }
-
-  img:hover {
-  }
-
-  .playing {
-    animation: turn 30s linear infinite;
-  }
-
-  @keyframes turn {
-    0% {
-      transform: rotate(0deg)
-    }
-    100% {
-      transform: rotate(360deg)
-    }
+  .sprite{
+    background:url(../static/img/spritesheet_grant.png);
+    width:165px;
+    height:292px;
   }
 </style>
