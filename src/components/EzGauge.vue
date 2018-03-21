@@ -39,7 +39,7 @@
         var angel = Math.PI - Math.atan(y/x);
         angel = angel > Math.PI ? angel-Math.PI : angel;
         var val = Math.floor(angel * (this.max-this.min) / Math.PI);
-        this.$emit('input',val);
+        this.$emit('update:value',val);
       }
     }
   }

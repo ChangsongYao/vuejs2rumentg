@@ -4,7 +4,7 @@
     <label class="v">{{v}}</label>
     <button @click="v++"> &uarr; 油门</button>
     <span class="status">{{status}}</span>
-    <ez-gauge v-model="v" @overload="onOverload"></ez-gauge>
+    <ez-gauge :value.sync="v" @overload="onOverload"></ez-gauge>
   </div>
 </template>
 <script>
