@@ -72,7 +72,7 @@
     margin-right: auto;
     border-radius: 0px 0px 200px 200px;
     transform-origin: center top;
-    transition: all .5s ease-in-out;
+    transition: all 1.3s ease-in-out;
   }
 
   .ez-gauge:hover .indicator {  transform:rotate(.5turn);
