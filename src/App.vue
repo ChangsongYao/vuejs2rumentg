@@ -1,32 +1,21 @@
 <template>
   <div id="app">
-    <ez-listview :data="goods">
-      <template scope="props">
-        <div class="item" :class="props.view">
-          <img :src="props.item.image">
-          <p>{{props.item.name}}</p>
-          <p>￥{{props.item.price}}</p>
-        </div>
-      </template>
-    </ez-listview>
+    <ez-comp ez-message="WHO ARE YOU?"/>
   </div>
 </template>
 <script>
-  import EzListview from './components/EzListview'
+  import EzComp from './components/EzComp'
 
   export default {
     name: 'App',
     data: function () {
-      return {
-        goods:[
-          {name:'双肩包男士多功能防盗背包 商务电脑包大学生书包女双肩背包',price:158,image:'../static/img/bag-1.jpg'},
-          {name:'休闲运动背包双肩包女书包中学生男时尚潮流大容量旅游旅行包',price:99,image:'../static/img/bag-2.jpg'},
-          {name:'防盗背包双肩包男士商务电脑包旅行包 大学生书包女双肩背包',price:158,image:'../static/img/bag-3.jpg'},
-          {name:'米熙双肩包女韩版潮 学院风校园印花背包男旅行包 中学生书包女包',price:99,image:'../static/img/bag-7.jpg'},
-        ]
-      }
+        return{
+          
+        }
     },
-    components:{'ez-listview':EzListview}
+    components:{
+      'ez-comp': EzComp
+    }
   }
 
 
