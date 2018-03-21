@@ -7,44 +7,41 @@
   <!--<link rel="stylesheet" href="static/lib/led.css">-->
   <script src="static/lib/vue.js"></script>
   <!--<script src="static/lib/marked.min.js"></script>-->
+  <script src="static/lib/masonry.pkgd.js"></script>
 </head>
 <style>
-  .color-picker{
-    cursor:pointer;
-    width:20px;
-    height:20px;
-    display:inline-block;
-    margin-right:5px;
-  }
 </style>
 <body>
 <div id="app">
-  <h1>不好笑的笑话</h1>
-  <div>
-    <span class="color-picker" v-for="c in colors" @click="color=c" :style="{background:c}"></span>
+  <div v-layout>
+    <img class="item" v-for="i in 11" :src="'static/img/art-'+i+'.jpg'" v-tile>
   </div>
-  <p>一个同事有一个6岁的女儿，开始换牙了，她的妈妈<span v-marker="color">带她拔完牙回到单位里，我妈问她：“牙还疼不疼？”那小女孩的回</span>答让旁边的一群人统统笑翻了：“啊呀，牙齿被留在医院里了，我不知道它疼不疼啊！”</p>
-  <p>公园的椅子上坐着一位老妇人，一小孩跑过来问：“婆婆，您牙还行吗？”“已经不行了，都掉了。”于是小孩拿出一包核桃说：“麻烦您替我拿一下，我过去玩会球……”</p>
-  <p>女儿被蚊子咬了几个大包。<span v-marker="color">她跑过来跟我哭诉。我</span>边为她抹风油精边安慰道：“风油精能发出特别的味道，蚊子闻了就害怕，就不会来咬你了。”女儿带着哭腔，担心地问：“要是蚊子捏着鼻子过来咬我怎么办？</p>
 </div>
 <!-- built files will be auto injected -->
 <script>
-  var highlight = function(el,binding,vnode,oldVnode){
-    var color = binding.value ? binding.value:"yellow";
-    el.style.backgroundColor = color;
-  };
-  var EzMarker = {
-    bind: highlight,
-    update: highlight
+  var EzLayout = {
+    bind: function(el,binding,vnode){
+      var msnry = new Masonry( el, {
+        itemSelector: '.item',
+        columnWidth: 150
+      });
+      vnode.context.$on('loaded',function(){
+        msnry.layout();
+      })
+    }
+  }
+  var EzTile = {
+    bind: function(el,binding,vnode){
+      el.onload = function(){
+        vnode.context.$emit('loaded');
+      }
+    }
   }
   new Vue({
     el:'#app',
-    data:{
-      color:'Yellow',
-      colors:['Lime','Yellow','Coral','Azure','CornflowerBlue','Fuchsia']
-    },
     directives:{
-      'marker':EzMarker
+      'layout':EzLayout,
+      'tile':EzTile
     }
   })
 </script>
