@@ -7,7 +7,8 @@
   <!--<script src="static/lib/velocity.js"></script>-->
   <!--<link rel="stylesheet" href="static/lib/led.css">-->
   <script src="static/lib/vue.js"></script>
-  <link rel="stylesheet" href="static/lib/animate.css">
+  <script src="static/lib/lodash.js"></script>
+  <!--<link rel="stylesheet" href="static/lib/animate.css">-->
 </head>
 <style>
   #app span{
@@ -24,11 +25,17 @@
     opacity:0;
     transform:translateY(30px);
   }
-
+  .demo-move{
+    transition:all 1s;
+  }
+  .demo-leave-active{
+    position:absolute;
+  }
 </style>
 <body>
 <div id="app">
   <p>
+    <button @click="shuffle">重排</button>
     <button @click="add">添加</button>
     <button @click="del">删除</button>
   </p>
@@ -36,7 +43,6 @@
     <span v-for="item in items" :key="item">{{item}}</span>
   </transition-group>
 </div>
-
 <!-- built files will be auto injected -->
 <script>
   new Vue({
@@ -51,6 +57,9 @@
       },
       del:function(){
         this.items.splice(this.randomIndex(),1);
+      },
+      shuffle:function(){
+        this.items = _.shuffle(this.items);
       }
     }
   });
