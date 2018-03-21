@@ -8,23 +8,23 @@
   <script src="static/lib/vue.js"></script>
 </head>
 <style>
-  img{
-    width:100%;
-  }
+
 </style>
 <body>
 <div id="app">
-  <ez-comp></ez-comp>
+  <ez-comp/>
   <p>this is a sample paragraph</p>
 </div>
 <!-- built files will be auto injected -->
 <script>
-  var EzComp = Vue.extend({template: '<h1>I am a component</h1>'});
+  var EzComp = {template: '<h1>I am a component</h1>'};
 
   new Vue({
     el:'#app',
-    components:{'ez-comp':EzComp}
+    components:{'ez-comp':EzComp},
   });
+
+  new Vue(EzRootComp);
 </script>
 </body>
 </html>
