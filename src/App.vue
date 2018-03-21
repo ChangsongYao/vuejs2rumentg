@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <ez-gauge min="0" max="100" :value="v"></ez-gauge>
+    <ez-gauge :value="v"></ez-gauge>
     <input v-model.number="v" type="number">
   </div>
 </template>
@@ -16,7 +16,7 @@
         v: 34
       }
     },
-    components: {
+    components:{
       'ez-gauge': EzGauge
     }
   }
