@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-    <div class="ad" v-show="!vip">
-      <img src="../static/img/banner4.jpg">
-      <button @click="vip=true">LOGIN AS VIP</button>
-    </div>
-    <div class="content">
-      <h1>{{title}}</h1>
-      <p>{{content}}</p>
-    </div>
+    <h1>{{shop}}</h1>
+    <ul class="clearfix">
+      <li v-for="item in items">
+        <div class="img-wrapper"><img :src="item.thumbnail"></div>
+        <div class="title">{{item.title}}</div>
+        <div class="price">¥{{item.price}}</div>
+      </li>
+    </ul>
+    <hr>
+    <div class="comments"></div>
   </div>
 </template>
 <script>
@@ -18,9 +20,21 @@
     name: 'App',
     data: function () {
       return {
-        vip: false,
-        title: '欧洲多国军事人员在斯洛伐克参加反恐培训',
-        content: '新华社布拉迪斯拉发７月１７日电（记者曲曦）斯洛伐克国防部１７日宣布，来自１３个欧洲国家的军事人员结束了在斯中部莱斯特军事训练基地进行的“检测及处置自制爆炸物”反恐培训。 斯洛伐克国防部发言人丹卡·察帕科娃说，参加培训的是来自斯洛伐克、奥地利、法国、德国、意大利和希腊等１３国的３２名军事人员。 培训负责人杜尚·哈拉宾说，在为期两周的培训中，来自斯洛伐克爆炸物处置中心的专家为参训人员介绍相关理论知识，训练如何使用装置检测、处置爆炸物。（完）'
+        shop:'酷动商城',
+        items:[
+          {thumbnail:'../static/img/sku-1.jpg',title:'永久山地自行车',price:'568',url:''},
+          {thumbnail:'../static/img/sku-2.jpg',title:'绿源电动车正品',price:'2169',url:''},
+          {thumbnail:'../static/img/sku-3.jpg',title:'包邮正品 防暴雨 6-12人',price:'1382.5',url:''},
+          {thumbnail:'../static/img/sku-4.jpg',title:'kd智能平衡车',price:'969',url:''},
+          {thumbnail:'../static/img/sku-5.jpg',title:'万达康仰卧起坐健身器材',price:'598',url:''},
+
+        ],
+        comments:[
+          {user:'lisa',text:'非常NICE的老板'},
+          {user:'aha',text:'帐篷很不错，就是有点漏雨:-('},
+          {user:'wobushibieren',text:'东西不错，就是物流太慢了！'},
+          {user:'ddddd',text:'必须好评！'},
+        ]
       }
     }
   }
@@ -29,6 +43,33 @@
 </script>
 
 <style>
-  .ad img{width:100%}
-  .ad button{position:absolute;right:10px;top:10px;}
+  .clearfix:after{
+    content:' ';
+    display:block;
+    clear:both;
+  }
+  #app ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  #app ul li{
+    float:left;
+    margin:10px;
+  }
+  #app ul li img{
+    width:150px;
+    height:150px;
+  }
+  #app .title{
+    text-align:center;
+  }
+  #app .price{
+    text-align:center;
+    color:red;
+  }
+  #app .comment{
+    padding:10px;
+    border-bottom:1px dashed #777;
+  }
 </style>
