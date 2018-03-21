@@ -6,8 +6,6 @@
   <title>vuejs2rumentg</title>
   <!--<link rel="stylesheet" href="static/lib/led.css">-->
   <script src="static/lib/vue.js"></script>
-  <!--<script src="static/lib/marked.min.js"></script>-->
-  <script src="static/lib/masonry.pkgd.js"></script>
 </head>
 <style>
   img{
@@ -16,11 +14,17 @@
 </style>
 <body>
 <div id="app">
-  <img src="static/img/lego.jpg">
+  <ez-comp></ez-comp>
+  <p>this is a sample paragraph</p>
 </div>
 <!-- built files will be auto injected -->
 <script>
+  var EzComp = Vue.extend({template: '<h1>I am a component</h1>'});
 
+  new Vue({
+    el:'#app',
+    components:{'ez-comp':EzComp}
+  });
 </script>
 </body>
 </html>
