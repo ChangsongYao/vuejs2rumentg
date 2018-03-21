@@ -2,13 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import 'font-awesome/css/font-awesome.css'
+// import 'font-awesome/css/font-awesome.css'
 
 Vue.config.productionTip = false
 
 new Vue({
-  el: '#app'
-  // ,
-  // components: {App},
-  // template: '<App/>'
+  el: '#app',
+  components: {App},
+  template: '<App/>'
 })

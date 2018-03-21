@@ -4,50 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>vuejs2rumentg</title>
-  <link rel="stylesheet" href="static/lib/led.css">
-  <script src="static/lib/vue.js"></script>
+  <!--<link rel="stylesheet" href="static/lib/led.css">-->
+  <!--<script src="static/lib/vue.js"></script>-->
 </head>
 <style>
-  .counter{
-    font-family:LED;
-    font-size:100px;
-  }
-
 </style>
 <body>
 <div id="app">
-  <div class="counter">{{counter}}</div>
 </div>
 <!-- built files will be auto injected -->
 <script>
-  var bootup = function(data,tpl,host){
-    var vm = new Vue({data:data});
-
-    var render = Vue.compile(tpl).render;
-
-    var prev = null;
-
-    var update = function(){
-      var vnode = render.call(vm,vm.$createElement);
-      var vnode_or_host = prev ? prev : host;
-      var el = vm.__patch__(vnode_or_host,vnode);
-      prev = vnode;
-    }
-
-    vm.$watch(update);
-
-    return vm;
-  };
-
-  var data = {counter:0};
-  var host = document.querySelector('#app');
-  var tpl = host.outerHTML;
-
-  var vm = bootup(data,tpl,host);
-
-  setInterval(function(){
-    vm.counter++;
-  },1000);
 </script>
 </body>
 </html>
