@@ -4,7 +4,7 @@
     <div class="inner"></div>
     <div class="indicator" :style="rotateStyle"></div>
     <div class="data">
-      <h1>{{value}}</h1>
+      <h1>{{value}} km/h</h1>
     </div>
   </div>
 </template>
@@ -14,8 +14,8 @@
     name: "ez-gauge",
     props: {
       min:{default:0,type:Number},
-      max:{default:100,type:Number},
-      value:{required:true,type:Number}
+      max:{default:220,type:Number},
+      value:{required:true,type:Number,validator:function(v){return v>=0}}
     },
     computed:{
       rotateStyle:function(){

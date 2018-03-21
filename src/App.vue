@@ -64,7 +64,7 @@
   .indicator {
     z-index: 2;
     position: absolute;
-    background-color: #5664F9;
+    background-color: #4fda10;
     width: 400px;
     height: 200px;
     top: 200px;
@@ -83,7 +83,7 @@
   .data {
     z-index: 4;
     color: rgba(255,255,255,.2);
-    font-size: 1.5em;
+    font-size: 1.2em;
     line-height: 25px;
     position: absolute;
     width: 400px;
