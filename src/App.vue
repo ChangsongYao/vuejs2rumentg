@@ -1,41 +1,15 @@
 <template>
-  <div id="app">
-    <div class="prevent" @selectstart.prevent>
-      <h4>.prevent</h4>
-      <span>双击不会选中文字</span>
-      <a href="http://www.hubwiz.com" @click.prevent>点击这个热点不会跳转</a>
-    </div>
-    <div class="stop" @click="counter.stopdiv++" @selectstart.prevent>
-      <h4>.stop</h4>
-      <button> NO .STOP</button>
-      <button @click.stop="counter.stop++">.stop / {{counter.stop}}</button>
-      div clicked: {{counter.stopdiv}}
-    </div>
-    <div class="self" @click.self="counter.selfdiv++"
-         @click="counter.selfall++" @selectstart.prevent>
-      <h4>.self</h4>
-      <button>click me</button>
-      div clicked:{{counter.selfdiv}} | all clicked:{{counter.selfall}}
-    </div>
-    <div class="left-middle-right">
-      <h4>.left/.middle/.right</h4>
-      <button @mouseup.left="counter.left++">.left / {{counter.left}}</button>
-      <button @mouseup.middle="counter.middle++">.middle / {{counter.middle}}</button>
-      <button @contextmenu.prevent @mouseup.right="counter.right++">.right / {{counter.right}}</button>
-    </div>
-    <div class="ctrl-shift-alt">
-      <h4>.ctrl/.shift/.alt/.meta</h4>
-      <button @click.ctrl="counter.ctrl++">.ctrl / {{counter.ctrl}}</button>
-      <button @click.shift="counter.shift++">.shift / {{counter.shift}}</button>
-      <button @click.alt="counter.alt++">.alt / {{counter.alt}}</button>
-      <button @click.meta="counter.meta++">.meta / {{counter.meta}}</button>
-      <div>
-        <div class="once">
-          <h4>.once</h4>
-          <button @click.once="counter.once++">.once / {{counter.once}}</button>
-        </div>
-      </div>
-    </div>
+  <div id="app"
+       tabindex=1
+       @keydown.up='move("up",5,5)'
+       @keydown.down='move("down",5,5)'
+       @keydown.left='move("left",5,5)'
+       @keydown.right='move("right",5,5)'
+       :style="{'background-position':bgpos[0]+'px ' + bgpos[1] + 'px' }"
+  >
+    <h1>开车吧，老司机</h1>
+    <div class="square fa fa-space-shuttle"
+         :style="{left:pos.left+'px',top:pos.top+'px',transform:tx}"></div>
   </div>
 </template>
 <script>
@@ -45,12 +19,48 @@
     name: 'App',
     data: function () {
       return {
-        counter:{
-          stop:0,stopdiv:0,
-          selfall:0,selfdiv:0,
-          left:0,middle:0,right:0,
-          ctrl:0,shift:0,alt:0,meta:0,
-          once:0
+        tx:'rotate(-90deg)',
+        pos:{
+          left:300,
+          top:150
+        },
+        bgpos:[0,0],
+        dir:'up'
+      }
+    },
+    created:function(){
+      var self = this;
+      var step = function(){
+        self.move(self.dir,0,1);
+        self.$forceUpdate();
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    },
+    methods:{
+      move:function(dir,fgstep,bgstep){
+        this.dir = dir;
+        switch(dir){
+          case 'left':
+            this.pos.left -= fgstep;
+            this.tx = 'rotate(-180deg)';
+            this.bgpos[0] +=bgstep;
+            break;
+          case 'right':
+            this.pos.left += fgstep;
+            this.tx = 'rotate(0deg)';
+            this.bgpos[0] -=bgstep;
+            break;
+          case 'up':
+            this.pos.top -= fgstep;
+            this.tx = 'rotate(-90deg)';
+            this.bgpos[1] +=bgstep;
+            break;
+          case 'down':
+            this.pos.top += fgstep;
+            this.tx = 'rotate(90deg)';
+            this.bgpos[1] -=bgstep;
+            break;
         }
       }
     }
@@ -60,31 +70,18 @@
 </script>
 
 <style>
-  #app {
+  #app{
     position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
+    left:0;top:0;right:0;bottom:0;
+    overflow:hidden;
+    outline:none;
+    background:url(../static/img/sky.jpg) repeat;
+    color:white;
   }
-
-  #app span {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    border: 1px solid red;
-    color: red;
-    border-radius: 5px;
-    padding: 5px;
-    z-index: 10;
-  }
-
-  #app img {
-  }
-
-  #app .fa {
-    position: absolute;
-    color: black;
+  #app .square{
+    position:absolute;
+    font-size:50px;
+    color:#7a6e6e;
+    transition:transform .5s;
   }
 </style>
