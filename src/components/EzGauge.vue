@@ -14,14 +14,22 @@
     name: "ez-gauge",
     props: {
       min:{default:0,type:Number},
-      max:{default:220,type:Number},
-      value:{required:true,type:Number,validator:function(v){return v>=0}}
+      max:{default:100,type:Number},
+      thresh:{default:80,type:Number},
+      value:{required:true,type:Number}
     },
     computed:{
       rotateStyle:function(){
         var val = this.value < this.min ? 0 : (this.value > this.max ? this.max: this.value);
         var angle = val * 180/(this.max-this.min);
         return {transform:'rotate(' + angle+'deg)'}
+      },
+      overload:function(){ return this.value >= this.thresh;}
+    },
+    watch:{
+      value:function(nv,ov){
+        if(nv >= this.thresh && ov < this.thresh) this.$emit('overload',true);
+        if(nv < this.thresh && ov >= this.thresh) this.$emit('overload',false);
       }
     }
   }

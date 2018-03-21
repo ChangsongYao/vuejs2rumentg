@@ -13,7 +13,14 @@
     name: 'App',
     data: function () {
       return {
-        v: 34
+        v:78,
+        status:''
+      }
+    },
+    methods:{
+      onOverload:function(flag){
+        if(flag) this.status = 'OVERLOAD!!!';
+        else this.status = '';
       }
     },
     components:{
@@ -27,6 +34,9 @@
 <style>
   body{
     background:#222;
+  }
+  #app{
+    outline:none;
   }
   .ez-gauge {
     width: 400px;
@@ -72,7 +82,11 @@
     margin-right: auto;
     border-radius: 0px 0px 200px 200px;
     transform-origin: center top;
-    transition: all 1.3s ease-in-out;
+    transition: all .1s ease-in-out;
+  }
+
+  .indicator.overload{
+    background-color:red;
   }
 
   .ez-gauge:hover .indicator {  transform:rotate(.5turn);
@@ -92,5 +106,11 @@
     margin-left: auto;
     margin-right: auto;
     transition: all 1s ease-out;
+  }
+  .status{
+    color: red;
+  }
+  .v{
+    color:white;
   }
 </style>
