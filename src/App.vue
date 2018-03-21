@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <h4>v-cloak</h4>
-    <p>{{content}}</p>
+    <img :src="images[idx]">
+    <a href="#" target="_blank">在大窗查看</a>
   </div>
 </template>
 <script>
@@ -10,13 +10,18 @@
     name: 'App',
     data: function () {
       return {
-        content:'使用v-cloak指令隐藏丑陋的{{}}，别忘了设置样式'
+        images:[
+          'static/img/scene-1.jpg',
+          'static/img/scene-2.jpg',
+          'static/img/scene-3.jpg'
+        ],
+        idx:0
       }
     },
     created:function(){
-      setTimeout(function(){
-        this.$mount('#app');
-      }.bind(this),1000);
+      setInterval(function(){
+        this.idx = (this.idx+1) % this.images.length
+      }.bind(this),2000);
     }
   }
 
@@ -24,5 +29,24 @@
 </script>
 
 <style>
-
+  #app{
+    position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+  }
+  #app img{
+    width:100%;
+    height:100%;
+  }
+  #app a{
+    position:absolute;
+    right:10px;
+    top:10px;
+    background:#695252;
+    color:#fff;
+    padding:10px 20px;
+    text-decoration:none;
+  }
 </style>
