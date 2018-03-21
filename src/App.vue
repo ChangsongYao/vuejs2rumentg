@@ -1,7 +1,21 @@
 <template>
   <div id="app">
-    <textarea v-model="raw"></textarea>
-    <div class="canvas" v-html="parsed"></div>
+    <div class="toolbar">
+      <input type="checkbox" id="nightMode">
+      <label for="toggle">夜晚阅读模式</label>
+    </div>
+
+    <h4>绑定单个复选框</h4>
+    <input id="remember" type="checkbox" v-model="checked">
+    <label for="remember">remember me!</label>
+    <p>rememberme: {{checked}}</p>
+
+    <h4>绑定复选框组</h4>
+    <div v-for="item in items">
+      <input type="checkbox"  :id="item" :value="item" v-model="selected">
+      <label :for="item">{{item}}</label>
+    </div>
+    <p>selected: {{selected}}</p>
   </div>
 </template>
 <script>
@@ -11,12 +25,9 @@
     name: 'App',
     data: function () {
       return {
-        raw: '# demo\n\nthis is a paragraph.and following is a list.\n\n- item 1\n- item 2'
-      }
-    },
-    computed:{
-      parsed: function(){
-        return marked(this.raw);
+        checked: false,
+        items: ['China','Japan','Korea'],
+        selected: []
       }
     }
   }
@@ -25,23 +36,9 @@
 </script>
 
 <style>
-  html,body,#app{
-    height: 100%;
+  div.toolbar{
+    background:#777;
+    color:yellow;
+    padding:6px;
   }
-  #app{
-    display:flex;
-  }
-  #app > *{
-    flex:1;
-  }
-  #app textarea{
-    font-family:Consolas;
-    outline:none;
-    border:0;
-    border-right:1px solid black;
-  }
-  #app div{
-    padding:0 10px;
-  }
-
 </style>
