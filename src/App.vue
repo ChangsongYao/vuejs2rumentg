@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <button @click="flag=!flag">toggle</button>
-    <transition>
-      <div v-show="flag">
-        <img src="../static/img/scene-3.jpg">
-      </div>
+    <button @click="flag=!flag">切换文字 显示 / 隐藏</button>
+    <button>切换图片 显示 / 隐藏</button>
+    <transition name="demo">
+      <div v-show="flag" class="title">I LOVE THIS GAME!</div>
     </transition>
+    <img src="../static/img/lego.jpg" class="test">
   </div>
 </template>
 <script>
@@ -20,15 +20,23 @@
 </script>
 
 <style>
-  img {
-    width: 100%;
+  body{
+    overflow:hidden;
   }
-
-  .v-enter-active, .v-leave-active {
-    transition: all 1s
+  .title{
+    font-size:3em;
+    text-align:center;
+    font-family:sans-serif;
   }
-
-  .v-enter, .v-leave-to {
-    opacity: 0
+  .demo-enter-active{
+    animation: bounce-in 1s;
+  }
+  .demo-leave-active{
+    animation: bounce-in 1s reverse;
+  }
+  @keyframes bounce-in{
+  %0 {transform:scale(0)}
+  50% {transform:scale(1.5)}
+  100% {transform:scale(1)}
   }
 </style>
