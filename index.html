@@ -12,19 +12,23 @@
 </style>
 <body>
 <div id="app">
-  <ez-comp/>
-  <p>this is a sample paragraph</p>
+  <h4>反模式：共享的数据模型</h4>
+  <ez-comp v-for="i in 10"></ez-comp>
 </div>
 <!-- built files will be auto injected -->
 <script>
-  var EzComp = {template: '<h1>I am a component</h1>'};
+  var model = {val:10};
+  var EzComp = {
+    template: '<button @click="val++">{{val}}</button>',
+    data: function(){return model}
+  };
 
   new Vue({
     el:'#app',
-    components:{'ez-comp':EzComp},
+    components:{
+      'ez-comp': EzComp
+    },
   });
-
-  new Vue(EzRootComp);
 </script>
 </body>
 </html>
