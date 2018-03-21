@@ -1,6 +1,9 @@
 <template>
   <div class="ez-panel">
-    <div class="header">{{title}}</div>
+    <div class="header">
+      {{title}}
+      <slot name="header"></slot>
+    </div>
     <div class="content">
       <slot></slot>
     </div>
