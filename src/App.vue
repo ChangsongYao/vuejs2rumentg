@@ -1,13 +1,7 @@
 <template>
-  <div id="app">
-    <div>
-      <button @click="add">ADD</button>
-      <button @click="remove">REMOVE</button>
-    </div>
-    <p>
-      <span v-for="i in k">{{i}}</span>
-    </p>
-    <div class="toolbar"></div>
+  <div id="app" @mousemove="x=$event.pageX,y=$event.pageY">
+    <span>( {{x}} , {{y}} )</span>
+    <div class="logo">Hubwiz.com</div>
   </div>
 </template>
 <script>
@@ -18,12 +12,9 @@
     name: 'App',
     data: function () {
       return {
-        k:5
+        x: 0,
+        y: 0
       }
-    },
-    methods:{
-      add:function(){ this.k++},
-      remove:function(){this.k = this.k>0?this.k-1:this.k}
     }
   }
 
@@ -31,5 +22,21 @@
 </script>
 
 <style>
-  #app span{display:inline-block;background:#f0f0f0;margin-right:10px;padding:0 10px;}
+  html,body,#app{
+    height:100%;
+    width:100%;
+    padding:0;
+    margin:0;
+    overflow:hidden;
+    cursor:crosshair;
+  }
+  .logo{
+    font-size:80px;
+    font-family:'Comic Sans MS';
+    font-style:italic;
+    color:#eee;
+    margin-top:40px;
+    text-align:center;
+    text-shadow:2px 2px 0px #ccc;
+  }
 </style>
